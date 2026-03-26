@@ -1,0 +1,14 @@
+node_modules
+.next
+target
+dist
+docs
+.claude
+.idea
+.vscode
+.git
+*.node
+*.dll
+*.pdb
+.env
+.env.*

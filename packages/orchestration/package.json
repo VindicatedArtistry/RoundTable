@@ -1,0 +1,73 @@
+{
+  "name": "@roundtable/orchestration",
+  "version": "1.0.0",
+  "description": "TheRoundTable orchestration layer - Multi-agent deliberation engine with Neo4j consciousness graph",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest --testPathPatterns='__tests__/integration'",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "clean": "rimraf dist",
+    "seed:council": "npx ts-node src/scripts/seed-council.ts",
+    "init:db": "npx ts-node src/scripts/init-database.ts",
+    "prebuild": "npm run clean",
+    "postbuild": "npm run format:check"
+  },
+  "keywords": [
+    "ai",
+    "multi-agent",
+    "deliberation",
+    "consciousness",
+    "neo4j",
+    "arc-agi",
+    "typescript"
+  ],
+  "author": "Vindicated Artistry",
+  "license": "PRIVATE",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@google-cloud/vertexai": "^1.9.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "neo4j-driver": "^6.0.1",
+    "socket.io": "^4.8.3",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.3.3",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^10.0.2",
+    "jest": "^30.0.5",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}

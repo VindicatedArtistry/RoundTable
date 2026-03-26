@@ -1,0 +1,277 @@
+/* Eira's Office Global Styling */
+
+/* Base Text Styling */
+.eiraText {
+  color: black;
+}
+
+.eiraTextFaded {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.eiraTextMuted {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Header Styling */
+.officeTitle {
+  color: black;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.officeSubtitle {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+}
+
+/* Navigation Button Text */
+.navButtonText {
+  color: black;
+  font-weight: 500;
+}
+
+/* Section Headers */
+.sectionTitle {
+  color: black;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.sectionSubtitle {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+}
+
+/* Card and Content Text */
+.cardTitle {
+  color: black;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+}
+
+.cardTextSmall {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.75rem;
+}
+
+/* Reflection Card Styling */
+.reflectionCardTitle {
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.reflectionCardCount {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+.reflectionEntryText {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.reflectionTimestamp {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.75rem;
+}
+
+.reflectionParticipants {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+/* Tooltip Styling */
+.tooltipText {
+  color: black;
+}
+
+/* Council Metrics */
+.councilMemberName {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.councilMetricLabel {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+.councilMetricValue {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+/* Feedback Section */
+.feedbackAuthor {
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.feedbackContent {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.feedbackTimestamp {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.75rem;
+}
+
+/* Input Styling */
+.eiraInput {
+  color: black;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.eiraInput::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.eiraInput:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pool Instructions */
+.poolInstruction {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.75rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Insight Text */
+.insightText {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Analysis Text */
+.analysisLabel {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+}
+
+.analysisValue {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+/* Concentric Circle Labels */
+.circleLabel {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+}
+
+/* Stone Throwing Interface */
+.stoneTitle {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stoneInstruction {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Animations remain the same */
+@keyframes ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes ripple-word-float {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes aurora-dance {
+  0% {
+    transform: translateX(-10%) translateY(-5%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(5%) translateY(2%) scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(10%) translateY(-3%) scale(1.05);
+    opacity: 0.2;
+  }
+}
+
+@keyframes winter-drift {
+  0% {
+    transform: translateY(-100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes wisdom-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px) scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-5px) translateX(-5px) scale(0.95);
+    opacity: 0.15;
+  }
+}

@@ -1,0 +1,83 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag to deploy (git SHA). Leave empty to use latest main."
+        required: false
+        default: ""
+
+env:
+  PROJECT_ID: aura-ba192
+  REGION: us-central1
+  SERVICE: roundtable-production
+  TEST_IMAGE: us-central1-docker.pkg.dev/aura-ba192/cloud-run-source-deploy/roundtable-test
+  PROD_IMAGE: us-central1-docker.pkg.dev/aura-ba192/cloud-run-source-deploy/roundtable-production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine image tag
+        id: tag
+        run: |
+          if [ -n "${{ inputs.image_tag }}" ]; then
+            echo "tag=${{ inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Verify image exists in Artifact Registry
+        run: |
+          echo "Checking for image tag: ${{ steps.tag.outputs.tag }}"
+          gcloud artifacts docker images describe \
+            "${{ env.TEST_IMAGE }}:${{ steps.tag.outputs.tag }}" \
+            --project=${{ env.PROJECT_ID }} || \
+          (echo "::error::Image tag '${{ steps.tag.outputs.tag }}' not found. Deploy to test first." && exit 1)
+
+      - name: Authenticate Docker to Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Re-tag test image for production
+        run: |
+          docker pull "${{ env.TEST_IMAGE }}:${{ steps.tag.outputs.tag }}"
+          docker tag "${{ env.TEST_IMAGE }}:${{ steps.tag.outputs.tag }}" "${{ env.PROD_IMAGE }}:${{ steps.tag.outputs.tag }}"
+          docker tag "${{ env.TEST_IMAGE }}:${{ steps.tag.outputs.tag }}" "${{ env.PROD_IMAGE }}:latest"
+          docker push "${{ env.PROD_IMAGE }}:${{ steps.tag.outputs.tag }}"
+          docker push "${{ env.PROD_IMAGE }}:latest"
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE }} \
+            --image=${{ env.PROD_IMAGE }}:${{ steps.tag.outputs.tag }} \
+            --region=${{ env.REGION }} \
+            --port=8080 \
+            --memory=512Mi \
+            --cpu=1 \
+            --min-instances=0 \
+            --max-instances=5 \
+            --allow-unauthenticated \
+            --project=${{ env.PROJECT_ID }}
+
+      - name: Output deployment URL
+        run: |
+          echo "Deployed to production"
+          echo "Image tag: ${{ steps.tag.outputs.tag }}"

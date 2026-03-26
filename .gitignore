@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+.next/
+dist/
+target/
+*.node
+*.dll
+*.pdb
+*.exp
+*.lib
+tsconfig.tsbuildinfo
+
+# Environment
+.env
+.env.*
+.env.local
+.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Rust
+target/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Claude
+.claude/

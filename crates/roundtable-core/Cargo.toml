@@ -1,0 +1,19 @@
+[package]
+name = "roundtable-core"
+description = "High-performance deliberation core — message bus, agent registry, task router"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+dashmap.workspace = true
+crossbeam.workspace = true
+futures-util.workspace = true

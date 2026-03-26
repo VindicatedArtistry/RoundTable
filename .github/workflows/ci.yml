@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build graph package
+        run: npm run build --workspace=@roundtable/graph
+
+      - name: Build orchestration
+        run: npm run build --workspace=@roundtable/orchestration
+
+      - name: Run orchestration tests with coverage
+        run: npm test --workspace=@roundtable/orchestration -- --coverage --testPathIgnorePatterns='integration'
+        env:
+          NODE_ENV: test
+          NEO4J_URI: bolt://localhost:7687
+
+      - name: Test summary
+        if: always()
+        run: |
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Orchestration: unit tests" >> $GITHUB_STEP_SUMMARY
+          echo "- Graph: build verification" >> $GITHUB_STEP_SUMMARY
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build Rust workspace
+        run: cargo build --workspace
+
+      - name: Test Rust workspace
+        run: cargo test --workspace

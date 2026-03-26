@@ -51,5 +51,9 @@ coverage/
 # Internal docs (competitive IP — kept locally, not in repo)
 docs/
 
+# Private council member data (personal team info)
+**/human-council-members.ts
+**/human-council-members.js
+
 # Claude
 .claude/

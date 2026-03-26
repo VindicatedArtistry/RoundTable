@@ -48,5 +48,8 @@ __pycache__/
 coverage/
 .nyc_output/
 
+# Internal docs (competitive IP — kept locally, not in repo)
+docs/
+
 # Claude
 .claude/
